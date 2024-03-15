@@ -2,6 +2,11 @@
 import type * as React from "react";
 import { ViewStyle, TextStyle } from 'react-native';
 
+export interface SelectListItem {
+    key: any,
+    value: any
+}
+
 export interface SelectListProps  {
     /**
     * Fn to set Selected option value which will be stored in your local state
@@ -51,7 +56,7 @@ export interface SelectListProps  {
     /**
     * The default option of the select list
     */
-    defaultOption?: { key: any, value: any },
+    defaultOption?: SelectListItem,
 
     /**
     * Pass any JSX to this prop like Text, Image or Icon to show instead of search icon
@@ -164,7 +169,7 @@ export interface MultipleSelectListProps  {
     /**
     * The default option of the select list
     */
-    defaultOption?: { key: any, value: any },
+    defaultOptions?: SelectListItem[],
 
     /**
     * Pass any JSX to this prop like Text, Image or Icon to show instead of search icon
