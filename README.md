@@ -144,7 +144,8 @@ For Live `Demo` [(Expo Snack)](https://snack.expo.dev/@danish1658/react-native-d
 | arrowicon| JSX Element | Pass any JSX to this prop like Text, Image or Icon to show instead of chevron icon
 | closeicon| JSX Element | Pass any JSX to this prop like Text, Image or Icon to show instead of close icon
 | searchPlaceholder| String | Custom placeholder text for search TextInput
-| defaultOption| Object | Pass default selected option in key value pair
+| defaultOption| Object | Pass default selected option in key value pair for Select dropdown list
+| defaultOptions| Object | Pass default selected option in key value pair for MultiSelect dropdown list
 | fontFamily| string | Pass font name to apply globally on each text field of component
 | notFoundText| string | Pass your custom message if any search result returns empty
 | dropdownShown| boolean | Control your dropdown ( on & off ) state by changing its value to true or false
@@ -197,6 +198,35 @@ const App = () => {
 
 };
 ```
+
+
+```
+import { MultipleSelectList } from 'react-native-dropdown-select-list'
+
+const App = () => {
+
+  const [selected, setSelected] = React.useState([]);
+
+  const data = [
+    {key:'1',value:'Jammu & Kashmir'},
+    {key:'2',value:'Gujrat'},
+    {key:'3',value:'Maharashtra'},
+    {key:'4',value:'Goa'},
+  ]
+
+  return(
+    <MultipleSelectList 
+      onSelect={() => alert(selected)}
+      setSelected={(val) => setSelected(val)} 
+      data={data} 
+      save="key"
+      defaultOptions={[ {key:'1', value:'Jammu & Kashmir' }, {key:'4', value:'Goa' }]}   //default selected options
+    />
+  )
+
+};
+```
+
 
 <br>
 
