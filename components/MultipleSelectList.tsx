@@ -44,7 +44,8 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
         badgeTextStyles,
         checkBoxStyles,
         save = 'key',
-        dropdownShown = false
+        dropdownShown = false,
+        defaultOptions,
     }) => {
 
     const oldOption = React.useRef(null)
@@ -95,6 +96,30 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
         onSelect()
         
     },[selectedval])
+
+    React.useEffect(() => {
+        let defaultOptionsKeys = defaultOptions ? defaultOptions.map(({key}) => {return key}) : [];
+        let defaultOptionsValues = defaultOptions ? defaultOptions.map(({value}) => {return value}) : [];
+
+        if (!_firstRender && defaultOptions && oldOption.current != defaultOptionsKeys) {
+            oldOption.current = defaultOptionsKeys;
+            if(save === 'value'){
+                setSelected(defaultOptionsValues);
+            }else{
+                setSelected(defaultOptionsKeys);
+            }
+            setSelectedVal(defaultOptionsValues);
+        }
+        if (defaultOptions && _firstRender && defaultOptionsKeys != undefined){  
+            oldOption.current = defaultOptionsKeys;
+            if(save === 'value'){
+                setSelected(defaultOptionsValues);
+            }else{
+                setSelected(defaultOptionsKeys);
+            }
+            setSelectedVal(defaultOptionsValues);
+        }  
+    },[defaultOptions]);
 
     React.useEffect(() => {
         if(!_firstRender){
