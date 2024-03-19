@@ -97,20 +97,13 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
         
     },[selectedval])
 
+    
     React.useEffect(() => {
         let defaultOptionsKeys = defaultOptions ? defaultOptions.map(({key}) => {return key}) : [];
         let defaultOptionsValues = defaultOptions ? defaultOptions.map(({value}) => {return value}) : [];
 
-        if (!_firstRender && defaultOptions && oldOption.current != defaultOptionsKeys) {
-            oldOption.current = defaultOptionsKeys;
-            if(save === 'value'){
-                setSelected(defaultOptionsValues);
-            }else{
-                setSelected(defaultOptionsKeys);
-            }
-            setSelectedVal(defaultOptionsValues);
-        }
         if (defaultOptions && _firstRender && defaultOptionsKeys != undefined){  
+            //@ts-ignore
             oldOption.current = defaultOptionsKeys;
             if(save === 'value'){
                 setSelected(defaultOptionsValues);
@@ -120,7 +113,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
             setSelectedVal(defaultOptionsValues);
         }  
     },[defaultOptions]);
-
+    
     React.useEffect(() => {
         if(!_firstRender){
             if(dropdownShown)
@@ -315,9 +308,10 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                                                     
                                                     
                                                 }}>
-                                                    <View style={[{width:15,height:15,borderWidth:1,marginRight:10,borderColor:'gray',borderRadius:3,justifyContent:'center',alignItems:'center'},checkBoxStyles]}>
+                                                    <View style={[{width:15,height:15,borderWidth:1,marginRight:10,borderColor:'gray',borderRadius:3,justifyContent:'center',alignItems:'center'}, selectedval?.includes(value) && {backgroundColor: 'white'} ,checkBoxStyles]}>
                                                         
                                                         {
+                                                            /*
                                                             (selectedval?.includes(value))
                                                             ?
                                                                 
@@ -330,7 +324,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                                                 
                                                             :
                                                             null
-
+*/
                                                         }
                                                             
 
@@ -363,7 +357,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                                     ?
                                         <Pressable>
                                             <View style={{flexDirection:'row', justifyContent:'space-between',alignItems:'center',paddingLeft:20}}>
-                                                <Text style={{marginRight:20,fontWeight:'600',fontFamily}}>Selected</Text>
+                                                <Text style={{marginRight:20,fontWeight:'600',fontFamily, color: 'white'}}>Selected</Text>
                                                 <View style={{height: 1, flex: 1, backgroundColor: 'gray'}} />
                                             </View>
                                             <View style={{flexDirection:'row',paddingHorizontal:20,marginBottom:20,flexWrap:'wrap'}}>

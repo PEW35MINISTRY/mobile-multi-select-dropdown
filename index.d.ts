@@ -4,7 +4,8 @@ import { ViewStyle, TextStyle } from 'react-native';
 
 export interface SelectListItem {
     key: any,
-    value: any
+    value: any,
+    disabled?: boolean | undefined
 }
 
 export interface SelectListProps  {
