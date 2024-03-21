@@ -103,7 +103,6 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
         let defaultOptionsValues = defaultOptions ? defaultOptions.map(({value}) => {return value}) : [];
 
         if (defaultOptions && _firstRender && defaultOptionsKeys != undefined){  
-            //@ts-ignore
             oldOption.current = defaultOptionsKeys;
             if(save === 'value'){
                 setSelected(defaultOptionsValues);

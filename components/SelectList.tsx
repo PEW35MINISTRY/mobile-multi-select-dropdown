@@ -91,7 +91,6 @@ const SelectList: React.FC<SelectListProps> =  ({
     React.useEffect(() => {
 
         if(defaultOption && _firstRender && defaultOption.key != undefined){
-            console.log("second option called");
             oldOption.current = defaultOption.key
             setSelected(defaultOption.key);
             setSelectedVal(defaultOption.value);
