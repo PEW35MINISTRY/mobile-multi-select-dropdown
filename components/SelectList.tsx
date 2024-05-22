@@ -92,7 +92,7 @@ const SelectList: React.FC<SelectListProps> =  ({
 
         if(defaultOption && _firstRender && defaultOption.key != undefined){
             oldOption.current = defaultOption.key
-            setSelected(defaultOption.key);
+            setSelected(defaultOption.value);
             setSelectedVal(defaultOption.value);
         }
         
