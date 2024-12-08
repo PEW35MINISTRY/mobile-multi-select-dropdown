@@ -131,6 +131,7 @@ const SelectList: React.FC<SelectListProps> =  ({
                             }
                             
                             <TextInput 
+                                allowFontScaling={false}
                                 placeholder={searchPlaceholder}
                                 onChangeText={(val) => {
                                     let result =  data.filter((item: L1Keys) => {
@@ -164,7 +165,7 @@ const SelectList: React.FC<SelectListProps> =  ({
                     </View>
                 :
                     <TouchableOpacity style={[styles.wrapper,boxStyles]} onPress={() => { if(!dropdown){ Keyboard.dismiss(); slidedown() }else{ slideup() } }}>
-                        <Text style={[{fontFamily},inputStyles]}>{ (selectedval == "") ? (placeholder) ? placeholder : 'Select option' : selectedval  }</Text>
+                        <Text allowFontScaling={false} style={[{fontFamily},inputStyles]}>{ (selectedval == "") ? (placeholder) ? placeholder : 'Select option' : selectedval  }</Text>
                         {
                             (!arrowicon)
                             ?
@@ -196,7 +197,7 @@ const SelectList: React.FC<SelectListProps> =  ({
                                     if(disabled){
                                         return(
                                             <TouchableOpacity style={[styles.disabledoption,disabledItemStyles]} key={index} onPress={ () => {}}>
-                                                <Text style={[{color:'#c4c5c6',fontFamily},disabledTextStyles]}>{value}</Text>
+                                                <Text allowFontScaling={false} style={[{color:'#c4c5c6',fontFamily},disabledTextStyles]}>{value}</Text>
                                             </TouchableOpacity>
                                         )
                                     }else{
@@ -213,7 +214,7 @@ const SelectList: React.FC<SelectListProps> =  ({
                                                 setTimeout(() => {setFilteredData(data)}, 800)
                                                 
                                             }}>
-                                                <Text style={[{fontFamily},dropdownTextStyles]}>{value}</Text>
+                                                <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{value}</Text>
                                             </TouchableOpacity>
                                         )
                                     }
@@ -227,7 +228,7 @@ const SelectList: React.FC<SelectListProps> =  ({
                                     setTimeout(() => setFilteredData(data), 800)
                                     
                                 }}>
-                                    <Text style={[{fontFamily},dropdownTextStyles]}>{notFoundText}</Text>
+                                    <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{notFoundText}</Text>
                                 </TouchableOpacity>
                             }
                             

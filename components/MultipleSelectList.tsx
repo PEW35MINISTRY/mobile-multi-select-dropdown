@@ -149,6 +149,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                             }
                             
                             <TextInput 
+                                allowFontScaling={false}
                                 placeholder={searchPlaceholder}
                                 onChangeText={(val) => {
                                     let result =  data.filter((item: L1Keys) => {
@@ -188,13 +189,13 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                 ?
                     <TouchableOpacity style={[styles.wrapper,boxStyles]} onPress={() => { if(!dropdown){ Keyboard.dismiss(); slidedown() }else{ slideup() } }} >
                         <View>
-                            <Text style={[{fontWeight:'600',fontFamily},labelStyles]}>{ label }</Text>
+                            <Text allowFontScaling={false} style={[{fontWeight:'600',fontFamily},labelStyles]}>{ label }</Text>
                             <View style={{flexDirection:'row',marginBottom:8,flexWrap:'wrap'}}>
                                 {
                                     selectedval?.map((item,index) => {
                                         return (
                                             <View key={index} style={[{backgroundColor:'gray',paddingHorizontal:20,paddingVertical:5,borderRadius:50,marginRight:10,marginTop:10}, badgeStyles]}>
-                                                <Text style={[{color:'white',fontSize:12,fontFamily}, badgeTextStyles]}>{item}</Text>
+                                                <Text allowFontScaling={false} style={[{color:'white',fontSize:12,fontFamily}, badgeTextStyles]}>{item}</Text>
                                             </View>
                                         )
                                     })
@@ -204,7 +205,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                     </TouchableOpacity>
                 :
                     <TouchableOpacity style={[styles.wrapper,boxStyles]} onPress={() => { if(!dropdown){ Keyboard.dismiss(); slidedown() }else{ slideup() } }}>
-                        <Text style={[{fontFamily},inputStyles]}>{ (selectedval == "") ? (placeholder) ? placeholder : 'Select option' : selectedval  }</Text>
+                        <Text allowFontScaling={false} style={[{fontFamily},inputStyles]}>{ (selectedval == "") ? (placeholder) ? placeholder : 'Select option' : selectedval  }</Text>
                         {
                             (!arrowicon)
                             ?
@@ -255,7 +256,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
 
                                                         }
                                                     </View>
-                                                    <Text style={[{fontFamily,color:'#c4c5c6'},disabledTextStyles]}>{value}</Text>
+                                                    <Text allowFontScaling={false} style={[{fontFamily,color:'#c4c5c6'},disabledTextStyles]}>{value}</Text>
                                                 </TouchableOpacity>
                                             )
                                         }else{
@@ -319,7 +320,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                                                         
                                                         
                                                     </View>
-                                                    <Text style={[{fontFamily},dropdownTextStyles]}>{value}</Text>
+                                                    <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{value}</Text>
                                                 </TouchableOpacity>
                                             )
                                         }
@@ -332,7 +333,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                                         slideup()
                                         setTimeout(() => setFilteredData(data), 800)  
                                     }}>
-                                        <Text style={dropdownTextStyles}>{notFoundText}</Text>
+                                        <Text allowFontScaling={false} style={dropdownTextStyles}>{notFoundText}</Text>
                                     </TouchableOpacity>
                                 }
                                 
@@ -345,7 +346,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                                     ?
                                         <Pressable>
                                             <View style={{flexDirection:'row', justifyContent:'space-between',alignItems:'center',paddingLeft:20}}>
-                                                <Text style={{marginRight:20,fontWeight:'600',fontFamily, color: 'white'}}>Selected</Text>
+                                                <Text allowFontScaling={false} style={{marginRight:20,fontWeight:'600',fontFamily, color: 'white'}}>Selected</Text>
                                                 <View style={{height: 1, flex: 1, backgroundColor: 'gray'}} />
                                             </View>
                                             <View style={{flexDirection:'row',paddingHorizontal:20,marginBottom:20,flexWrap:'wrap'}}>
@@ -354,7 +355,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                                                     selectedval?.map((item,index) => {
                                                         return (
                                                             <View key={index} style={[{backgroundColor:'gray',paddingHorizontal:20,paddingVertical:5,borderRadius:50,marginRight:10,marginTop:10},badgeStyles]}>
-                                                                <Text style={[{color:'white',fontSize:12,fontFamily},badgeTextStyles]}>{item}</Text>
+                                                                <Text allowFontScaling={false} style={[{color:'white',fontSize:12,fontFamily},badgeTextStyles]}>{item}</Text>
                                                             </View>
                                                         )
                                                     })
