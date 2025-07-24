@@ -35,7 +35,7 @@ const SelectList: React.FC<SelectListProps> =  ({
         disabledItemStyles,
         disabledTextStyles,
         onSelect = () => {},
-        save = 'key',
+        save = 'value',
         dropdownShown = false,
         fontFamily
     }) => {
@@ -197,7 +197,7 @@ const SelectList: React.FC<SelectListProps> =  ({
                                     if(disabled){
                                         return(
                                             <TouchableOpacity style={[styles.disabledoption,disabledItemStyles]} key={index} onPress={ () => {}}>
-                                                <Text allowFontScaling={false} style={[{color:'#c4c5c6',fontFamily},disabledTextStyles]}>{value}</Text>
+                                                <Text allowFontScaling={false} style={[{color:'#c4c5c6',fontFamily},disabledTextStyles]}>{key}</Text>
                                             </TouchableOpacity>
                                         )
                                     }else{
@@ -214,7 +214,7 @@ const SelectList: React.FC<SelectListProps> =  ({
                                                 setTimeout(() => {setFilteredData(data)}, 800)
                                                 
                                             }}>
-                                                <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{value}</Text>
+                                                <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{key}</Text>
                                             </TouchableOpacity>
                                         )
                                     }

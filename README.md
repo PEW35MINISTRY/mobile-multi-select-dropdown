@@ -1,3 +1,28 @@
+# react-native-dropdown-select-list (Local Fork)
+
+> **Note:** This is a local fork of the [react-native-dropdown-select-list](https://www.npmjs.com/package/react-native-dropdown-select-list) package originally maintained by [danish1658](https://github.com/danish1658/react-native-dropdown-select-list).  
+> The original npm package was last updated on **August 22, 2023**.  
+> This fork was created on **March 14, 2024** to support the [Encouraging Prayer React Native Mobile app](https://encouragingprayer.org/) for [PEW35 Ministry](https://pew35.org/), adding features and UI improvements.
+
+---
+
+## Fork Overview & Changelog
+
+| Date             | Change Log Description                                                                             |
+|------------------|----------------------------------------------------------------------------------------------------|
+| **Mar 21, 2024** | Modified `setSelected` to save `value` instead of `key` and to use local state for existing values |
+| **Mar 14, 2025** | Added `SelectListItem` interface                                                                   |
+| **Mar 14, 2025** | Added default value functionality                                                                  |
+| **Dec 8, 2024**  | Added font scaling override                                                                        |
+| **Jul 23, 2025** | Updated dropdown rendering to display `key` (label) instead of `value` for user-friendly display   |
+
+
+
+---
+
+<!-- Original README content below -->
+# react-native-dropdown-select-list
+
 |                          | |  |   |   |
 | --------------------------------------- | -------- | ---------- |---------- |---------- |
 | <a href="https://www.npmjs.com/package/react-native-dropdown-select-list">![NPM VERSION](https://img.shields.io/npm/v/react-native-dropdown-select-list?style=for-the-badge)</a> | <a href="https://www.npmjs.com/package/react-native-dropdown-select-list">![NPM WEEKLY DOWNLOADS](https://img.shields.io/npm/dw/react-native-dropdown-select-list?color=%232CA215&label=WEEKLY%20DOWNLOADS&style=for-the-badge)</a> | <a href="https://github.com/danish1658/react-native-dropdown-select-list/stargazers">![GITHUB STAR](https://img.shields.io/github/stars/danish1658/react-native-dropdown-select-list?label=Give%20Us%20A%20Star&style=for-the-badge)</a> | <a href="https://www.youtube.com/channel/UCEbbpzmnbRiNVhJ3ElABbMQ">![YOUTUBE VIEWS](https://img.shields.io/youtube/channel/views/UCEbbpzmnbRiNVhJ3ElABbMQ?label=YOUTUBE%20VIEWS&style=for-the-badge)</a> | <a href="https://www.npmjs.com/package/react-native-dropdown-select-list">![NPM LIFETIME DOWNLOADS](https://img.shields.io/npm/dt/react-native-dropdown-select-list?color=%232CA215&style=for-the-badge)</a>

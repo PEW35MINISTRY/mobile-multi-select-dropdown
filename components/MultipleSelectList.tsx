@@ -43,12 +43,12 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
         badgeStyles,
         badgeTextStyles,
         checkBoxStyles,
-        save = 'key',
+        save = 'value',
         dropdownShown = false,
         defaultOptions,
     }) => {
 
-    const oldOption = React.useRef(null)
+    const oldOption = React.useRef<string[] | null>(null);
     const [_firstRender,_setFirstRender] = React.useState<boolean>(true);
     const [dropdown, setDropdown] = React.useState<boolean>(dropdownShown);
     const [selectedval, setSelectedVal] = React.useState<any>([]);
@@ -256,7 +256,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
 
                                                         }
                                                     </View>
-                                                    <Text allowFontScaling={false} style={[{fontFamily,color:'#c4c5c6'},disabledTextStyles]}>{value}</Text>
+                                                    <Text allowFontScaling={false} style={[{fontFamily,color:'#c4c5c6'},disabledTextStyles]}>{key}</Text>
                                                 </TouchableOpacity>
                                             )
                                         }else{
@@ -320,7 +320,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                                                         
                                                         
                                                     </View>
-                                                    <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{value}</Text>
+                                                    <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{key}</Text>
                                                 </TouchableOpacity>
                                             )
                                         }
