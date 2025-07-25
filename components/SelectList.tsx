@@ -11,12 +11,11 @@ import {
     Keyboard
 } from 'react-native';
 
-import { SelectListProps } from '..';
-
-type L1Keys = { key?: any; value?: any; disabled?: boolean | undefined }
+import { SelectListItem, SelectListProps } from '..';
 
 const SelectList: React.FC<SelectListProps> =  ({
-        setSelected,
+        onSelectItem = () => {},
+        onSelectValue = () => {},
         placeholder,
         boxStyles,
         inputStyles,
@@ -24,7 +23,7 @@ const SelectList: React.FC<SelectListProps> =  ({
         dropdownItemStyles,
         dropdownTextStyles,
         maxHeight,
-        data,
+        optionList,
         defaultOption,
         searchicon = false,
         arrowicon = false,
@@ -34,19 +33,17 @@ const SelectList: React.FC<SelectListProps> =  ({
         notFoundText = "No data found",
         disabledItemStyles,
         disabledTextStyles,
-        onSelect = () => {},
-        save = 'value',
         dropdownShown = false,
         fontFamily
     }) => {
 
-    const oldOption = React.useRef(null)
+    const initialSelectedItemRef = React.useRef<SelectListItem | null>(null);
     const [_firstRender,_setFirstRender] = React.useState<boolean>(true);
     const [dropdown, setDropdown] = React.useState<boolean>(dropdownShown);
-    const [selectedval, setSelectedVal] = React.useState<any>("");
+    const [selectedItem, setSelectedItem] = React.useState<SelectListItem|undefined>(defaultOption);
     const [height,setHeight] = React.useState<number>(200)
     const animatedvalue = React.useRef(new Animated.Value(0)).current;
-    const [filtereddata,setFilteredData] = React.useState(data)
+    const [filteredDisplayList,setFilteredDisplayList] = React.useState<SelectListItem[]>(optionList)
 
 
     const slidedown = () => {
@@ -75,25 +72,30 @@ const SelectList: React.FC<SelectListProps> =  ({
 
     
     React.useEffect(() => {
-        setFilteredData(data);
-      },[data])
+        setFilteredDisplayList(optionList);
+      },[optionList])
 
 
+    /** Trigger callback on selection */
     React.useEffect(() => {
         if(_firstRender){
           _setFirstRender(false);
           return;
         }
-        onSelect()
-    },[selectedval])
-  
 
+        //Currently not support de-selection
+        if(selectedItem) {
+            onSelectItem(selectedItem);
+            onSelectValue(selectedItem?.value);
+        }
+    },[selectedItem]);
+  
+    /* Initialization */
     React.useEffect(() => {
 
-        if(defaultOption && _firstRender && defaultOption.key != undefined){
-            oldOption.current = defaultOption.key
-            setSelected(defaultOption.value);
-            setSelectedVal(defaultOption.value);
+        if(defaultOption && _firstRender && defaultOption.value != undefined){
+            initialSelectedItemRef.current = defaultOption;
+            setSelectedItem(defaultOption);
         }
         
     },[defaultOption])
@@ -107,8 +109,22 @@ const SelectList: React.FC<SelectListProps> =  ({
             
         }
         
-    },[dropdownShown])
+    },[dropdownShown]);
 
+
+    // Filter list by query, prioritizing matches in `value` over `displayLabel`
+    const searchAndFilter = (query:string) => {
+        const lowerQuery = query.toLowerCase();
+        setFilteredDisplayList(optionList
+            .filter(item =>
+            String(item.value).toLowerCase().includes(lowerQuery) ||
+            String(item.displayLabel).toLowerCase().includes(lowerQuery)
+            )
+            .sort((a, b) =>
+            String(b.value).toLowerCase().includes(lowerQuery) ? 1 :
+            String(a.value).toLowerCase().includes(lowerQuery) ? -1 : 0
+        ));
+    };
 
 
     return(
@@ -133,14 +149,7 @@ const SelectList: React.FC<SelectListProps> =  ({
                             <TextInput 
                                 allowFontScaling={false}
                                 placeholder={searchPlaceholder}
-                                onChangeText={(val) => {
-                                    let result =  data.filter((item: L1Keys) => {
-                                        val.toLowerCase();
-                                        let row = item.value.toLowerCase()
-                                        return row.search(val.toLowerCase()) > -1;
-                                    });
-                                    setFilteredData(result)
-                                }}
+                                onChangeText={(val) => searchAndFilter(val)}
                                 style={[{padding:0,height:20,flex:1,fontFamily},inputStyles]}
                             />
                                 <TouchableOpacity onPress={() => slideup()} >
@@ -165,7 +174,7 @@ const SelectList: React.FC<SelectListProps> =  ({
                     </View>
                 :
                     <TouchableOpacity style={[styles.wrapper,boxStyles]} onPress={() => { if(!dropdown){ Keyboard.dismiss(); slidedown() }else{ slideup() } }}>
-                        <Text allowFontScaling={false} style={[{fontFamily},inputStyles]}>{ (selectedval == "") ? (placeholder) ? placeholder : 'Select option' : selectedval  }</Text>
+                        <Text allowFontScaling={false} style={[{fontFamily},inputStyles]}>{ (selectedItem === undefined) ? (placeholder) ? placeholder : 'Select' : selectedItem.displayLabel  }</Text>
                         {
                             (!arrowicon)
                             ?
@@ -188,46 +197,32 @@ const SelectList: React.FC<SelectListProps> =  ({
                         <ScrollView  contentContainerStyle={{paddingVertical:10,overflow:'hidden'}} nestedScrollEnabled={true}>
 
                             {
-                                (filtereddata.length >=  1)
+                                (filteredDisplayList.length > 0)
                                 ?
-                                filtereddata.map((item: L1Keys,index: number) => {
-                                    let key = item.key ?? item.value ?? item;
-                                    let value = item.value ?? item;
+                                filteredDisplayList.map((item:SelectListItem, index:number) => {
                                     let disabled = item.disabled ?? false;
                                     if(disabled){
                                         return(
-                                            <TouchableOpacity style={[styles.disabledoption,disabledItemStyles]} key={index} onPress={ () => {}}>
-                                                <Text allowFontScaling={false} style={[{color:'#c4c5c6',fontFamily},disabledTextStyles]}>{key}</Text>
+                                            <TouchableOpacity style={[styles.disabledoption,disabledItemStyles]} key={index+item.key} onPress={ () => {}}>
+                                                <Text allowFontScaling={false} style={[{color:'#c4c5c6',fontFamily},disabledTextStyles]}>{item.displayLabel} </Text>
                                             </TouchableOpacity>
                                         )
                                     }else{
                                         return(
                                             <TouchableOpacity style={[styles.option,dropdownItemStyles]} key={index} onPress={ () => {
-                                                if(save === 'value'){
-                                                    setSelected(value);
-                                                }else{
-                                                    setSelected(key)
-                                                }
-                                                
-                                                setSelectedVal(value)
-                                                slideup()
-                                                setTimeout(() => {setFilteredData(data)}, 800)
+                                                setSelectedItem(item); //Callback triggered in useEffect
+                                                slideup();
+                                                setTimeout(() => {setFilteredDisplayList(optionList)}, 800);
                                                 
                                             }}>
-                                                <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{key}</Text>
+                                                <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{item.displayLabel}</Text>
                                             </TouchableOpacity>
                                         )
                                     }
                                     
                                 })
                                 :
-                                <TouchableOpacity style={[styles.option,dropdownItemStyles]} onPress={ () => {
-                                    setSelected(undefined)
-                                    setSelectedVal("")
-                                    slideup()
-                                    setTimeout(() => setFilteredData(data), 800)
-                                    
-                                }}>
+                                <TouchableOpacity style={[styles.option,dropdownItemStyles]} >
                                     <Text allowFontScaling={false} style={[{fontFamily},dropdownTextStyles]}>{notFoundText}</Text>
                                 </TouchableOpacity>
                             }
