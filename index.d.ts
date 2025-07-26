@@ -3,16 +3,18 @@ import type * as React from "react";
 import { ViewStyle, TextStyle } from 'react-native';
 
 export interface SelectListItem {
-    key: any,
-    value: any,
+    key: string,
+    displayLabel: string,
+    value: string|number,
     disabled?: boolean | undefined
 }
 
 export interface SelectListProps  {
-    /**
-    * Fn to set Selected option value which will be stored in your local state
-    */
-    setSelected: Function,
+    /** Triggered on selection to return item. */
+    onSelectItem?: (item:SelectListItem) => void,
+
+    /** Triggers on selection to return value. */
+    onSelectValue?: (item:string|number) => void,
 
     /**
     * Placeholder text that will be displayed in the select box
@@ -52,7 +54,7 @@ export interface SelectListProps  {
     /**
     * Data which will be iterated as options of select list
     */
-    data: Array<{}>,
+    optionList: SelectListItem[],
 
     /**
     * The default option of the select list
@@ -80,11 +82,6 @@ export interface SelectListProps  {
     searchPlaceholder?: string,
 
     /**
-    * Trigger an action when option is selected
-    */
-    onSelect?: () => void,
-
-    /**
     * set fontFamily of whole component Text 
     */
     fontFamily?: string,
@@ -105,11 +102,6 @@ export interface SelectListProps  {
     disabledTextStyles?: TextStyle,
 
     /**
-    * What to store inside your local state (key or value)
-    */
-    save?: 'key' | 'value',
-
-    /**
     * Control the dropdown with this prop
     */
     dropdownShown?: boolean,
@@ -122,10 +114,23 @@ export interface SelectListProps  {
 
 
 export interface MultipleSelectListProps  {
-    /**
-    * Fn to set Selected option value which will be stored in your local state
-    */
-    setSelected: Function,
+    /** Triggered on selection to return current selected items array. */
+    onSelectItemList?: (item:SelectListItem[]) => void,
+
+    /** Triggered on selection to return current selected values array. */
+    onSelectValueList?: (item:(string|number)[]) => void,
+
+    /** Triggered on single selection to return latest selected item. */
+    onSelectItem?: (item:SelectListItem) => void,
+
+    /** Triggered on deselection to return latest deselected item. */
+    onDeselectItem?: (item:SelectListItem) => void;
+
+    /** Triggered on single selection to return latest selected value. */
+    onSelectValue?: (item:string|number) => void,
+
+    /** Triggered on deselection to return latest deselected value. */
+    onDeselectValue?: (value: string|number) => void;
 
     /**
     * Placeholder text that will be displayed in the select box
@@ -165,7 +170,7 @@ export interface MultipleSelectListProps  {
     /**
     * Data which will be iterated as options of select list
     */
-    data: Array<{}>,
+    optionList: SelectListItem[],
 
     /**
     * The default option of the select list
@@ -191,11 +196,6 @@ export interface MultipleSelectListProps  {
     * set to false if you dont want to use search functionality
     */
      searchPlaceholder?: string,
-
-    /**
-    * Trigger an action when option is selected
-    */
-    onSelect?: () => void,
 
     /**
     * set text of label which appears soon after multiple values are selected
@@ -232,12 +232,7 @@ export interface MultipleSelectListProps  {
     * Additional styles for checkbox
     */
     checkBoxStyles?: ViewStyle,
-
-    /**
-    * What to store inside your local state (key or value)
-    */
-    save?: 'key' | 'value',
-    
+   
     /**
     * Control the dropdown with this prop
     */
