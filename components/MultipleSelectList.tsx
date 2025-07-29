@@ -106,6 +106,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
     React.useEffect(() => {
         if(defaultOptions && defaultOptions.length > 0 && _firstRender) {  
             initialSelectedItemsRef.current = defaultOptions.map(({key}) => {return key});
+            setSelectedItemList(defaultOptions);
         }  
     },[defaultOptions]);
     

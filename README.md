@@ -16,6 +16,7 @@
 | **Dec 8, 2024**  | Added font scaling override                                                                        |
 | **Jul 23, 2025** | Updated dropdown rendering to display `key` (label) instead of `value` for user-friendly display   |
 | **Jul 23, 2025** | Refactor to use `SelectListItem` as state and props with additional `displayLabel` for rendering   |
+| **JUl 28, 2025** | Fixed a bug that prevented default values from displaying in `MultipleSelectList`
 
 
 
